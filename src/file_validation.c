@@ -4,18 +4,14 @@ status_t validate_files(int argc, char **argv, file_t **head) {
 
     *head = NULL;
 
-    printf("argc is %d\n",argc);
     if ( argc <= 1 ) {
         return FAILURE;
     }
 
     for ( int i = 1 ; i < argc ; i++ ) {
 
-        printf("Read %s\n",argv[i]);
-
         // FIXME: it wont solve arjun.txt123 issue
         if ( strstr(argv[i],".txt") == 0 ) {
-            printf("skipped %s\n",argv[i]);
             continue;
         }
 
