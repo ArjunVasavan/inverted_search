@@ -1,9 +1,10 @@
 # Inverted Search Engine (C)
 
-![C](https://img.shields.io/badge/language-C-00599C?logo=c\&logoColor=white\&style=flat-square)
-![DSA](https://img.shields.io/badge/design-HashTable%20%2B%20LinkedList-orange?style=flat-square)
+![C](https://img.shields.io/badge/language-C-blue?style=flat-square)
 ![Status](https://img.shields.io/badge/status-completed-brightgreen?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+
+---
 
 A file-based **Inverted Index implementation in C** using a hash table and two-level linked lists.
 

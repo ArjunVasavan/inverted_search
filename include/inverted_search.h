@@ -17,6 +17,11 @@ typedef enum {
     DATA_NOT_FOUND = -3
 } status_t;
 
+typedef enum {
+    DB_EMPTY,
+    DB_CREATED,
+    DB_UPDATED
+} db_state_t;
 
 /* File list (input file list)   */
 
@@ -73,8 +78,10 @@ void display_database(hash_t hash_table[]);
 status_t save_database(hash_t hash_table[],
                        const char *file_name);
 
+
 status_t update_database(hash_t hash_table[],
-                         const char *file_name);
+                         const char *file_name,
+                         file_t **file_list_head);
 
 void free_database(hash_t hash_table[]);
 

@@ -1,82 +1,92 @@
 #include "../include/inverted_search.h"
 
-int main(int argc, char** argv) {
-
+int main(int argc, char **argv)
+{
     hash_t hash_table_array[HASH_SIZE];
-    file_t* file_list_head = NULL;
+    file_t *file_list_head = NULL;
 
-    if ( validate_files(argc,argv,&file_list_head) == FAILURE ) {
-        printf("[validate_files]: error in validating files \n");
-        exit(EXIT_FAILURE);
+    db_state_t state = DB_EMPTY;
+
+    if (validate_files(argc, argv, &file_list_head) == FAILURE) {
+        printf("File validation failed\n");
+        return FAILURE;
     }
+
     create_hash_table(hash_table_array);
+
     int choice;
 
-    do {
-    error_choice:
-        printf("1. Create Database\n");
+    while (1) {
+
+        printf("\n1. Create Database\n");
         printf("2. Display Database\n");
         printf("3. Search Database\n");
         printf("4. Save Database\n");
         printf("5. Update Database\n");
         printf("6. Exit\n");
-        printf("Enter an choice: ");
-        scanf("%d",&choice);
-        printf("\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
 
         switch (choice) {
 
-            case 1: {
+            case 1:
+                if (state == DB_EMPTY || state == DB_UPDATED) {
 
-                if ( create_database(hash_table_array,file_list_head) == SUCCESS ) {
-                    printf("Database successfully created\n");
+                    if (create_database(hash_table_array, file_list_head) == SUCCESS) {
+                        printf("Database created successfully\n");
+                        state = DB_CREATED;
+                    }
+
                 } else {
-                    printf("Failure in creating database\n");
-                    exit(EXIT_FAILURE);
+                    printf("[ERROR]: Create not allowed\n");
                 }
-
                 break;
-            }
 
-            case 2: {
+            case 2:
                 display_database(hash_table_array);
                 break;
-            }
 
             case 3: {
-                printf("Enter an Word you want to search: ");
                 char word[WORD_SIZE];
-                scanf("%s",word);
-                search_database(hash_table_array,word);
+                printf("Enter word: ");
+                scanf("%s", word);
+                search_database(hash_table_array, word);
                 break;
             }
+
             case 4: {
-                printf("Enter the file name you want to save: ");
-                char file_name[WORD_SIZE];
-                scanf("%s",file_name);
-                save_database(hash_table_array,file_name);
-                break;
-            }
-            case 5: {
-                printf("Enter the file name: ");
-                char file_name[WORD_SIZE];
-                scanf("%s",file_name);
-                update_database(hash_table_array,file_name);
+                char save_file[WORD_SIZE];
+                printf("Enter save file name: ");
+                scanf("%s", save_file);
+                save_database(hash_table_array, save_file);
                 break;
             }
 
-            case 6: {
+            case 5:
+                if (state == DB_EMPTY) {
+
+                    char backup_file[WORD_SIZE];
+                    printf("Enter backup file name: ");
+                    scanf("%s", backup_file);
+
+                    if (update_database(hash_table_array,
+                                        backup_file,
+                                        &file_list_head) == SUCCESS) {
+                        printf("Database updated successfully\n");
+                        state = DB_UPDATED;
+                    }
+
+                } else {
+                    printf("[ERROR]: Update not allowed\n");
+                }
+                break;
+
+            case 6:
                 free_database(hash_table_array);
-                exit(EXIT_SUCCESS);
-                break;
-            }
+                return SUCCESS;
 
-            default:{
-                printf("[ERROR] Enter an valid choice\n");
-                goto error_choice;
-            }
+            default:
+                printf("Invalid choice\n");
         }
-
-    } while (1);
-
+    }
 }
