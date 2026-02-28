@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 
     printf("1. Create Database\n");
     printf("2. Display Database\n");
-    printf("3. Exit\n");
+    printf("3. Search Database\n");
     printf("Enter an choice: ");
     scanf("%d",&choice);
     printf("\n");
@@ -39,8 +39,17 @@ int main(int argc, char** argv) {
             display_database(hash_table_array);
             break;
         }
+
+        case 3: {
+
+                printf("Enter an Word you want to search: ");
+                char word[WORD_SIZE];
+                scanf("%s",word);
+                search_database(hash_table_array,word);
+                break;
+            }
     }
 
-    } while (choice != 3);
+    } while (1);
 
 }
