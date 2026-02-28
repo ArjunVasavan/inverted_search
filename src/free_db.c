@@ -27,7 +27,8 @@ void free_database(hash_t *hash_table) {
             cur_main = cur_main->next;
             free(prev_main);
         }
-
+        hash_table[i].head = NULL;
     }
 
 }
+
