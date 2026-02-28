@@ -1,7 +1,7 @@
 CC := gcc
 
 TARGET := a.out
-CFLAGS := -Iinclude
+CFLAGS := -Iinclude 
 
 SRC_DIR := src
 BUILD_DIR := build
