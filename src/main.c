@@ -1,4 +1,5 @@
 #include "../include/inverted_search.h"
+#include <stdio.h>
 
 int main(int argc, char** argv) {
 
@@ -17,6 +18,7 @@ int main(int argc, char** argv) {
     printf("1. Create Database\n");
     printf("2. Display Database\n");
     printf("3. Search Database\n");
+    printf("4. Save Database\n");
     printf("Enter an choice: ");
     scanf("%d",&choice);
     printf("\n");
@@ -46,6 +48,13 @@ int main(int argc, char** argv) {
                 char word[WORD_SIZE];
                 scanf("%s",word);
                 search_database(hash_table_array,word);
+                break;
+            }
+        case 4: {
+                printf("Enter the file name you want to save: ");
+                char file_name[WORD_SIZE];
+                scanf("%s",file_name);
+                save_database(hash_table_array,file_name);
                 break;
             }
     }
