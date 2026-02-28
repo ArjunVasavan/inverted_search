@@ -1,5 +1,4 @@
 #include "../include/inverted_search.h"
-#include <stdio.h>
 
 int main(int argc, char** argv) {
 
@@ -14,18 +13,18 @@ int main(int argc, char** argv) {
     int choice;
 
     do {
+        printf("1. Create Database\n");
+        printf("2. Display Database\n");
+        printf("3. Search Database\n");
+        printf("4. Save Database\n");
+        printf("5. Update Database\n");
+        printf("Enter an choice: ");
+        scanf("%d",&choice);
+        printf("\n");
 
-    printf("1. Create Database\n");
-    printf("2. Display Database\n");
-    printf("3. Search Database\n");
-    printf("4. Save Database\n");
-    printf("Enter an choice: ");
-    scanf("%d",&choice);
-    printf("\n");
+        switch (choice) {
 
-    switch (choice) {
-
-        case 1: {
+            case 1: {
 
                 if ( create_database(hash_table_array,file_list_head) == SUCCESS ) {
                     printf("Database successfully created\n");
@@ -34,30 +33,36 @@ int main(int argc, char** argv) {
                     exit(EXIT_FAILURE);
                 }
 
-            break;
-        }
+                break;
+            }
 
-        case 2: {
-            display_database(hash_table_array);
-            break;
-        }
+            case 2: {
+                display_database(hash_table_array);
+                break;
+            }
 
-        case 3: {
-
+            case 3: {
                 printf("Enter an Word you want to search: ");
                 char word[WORD_SIZE];
                 scanf("%s",word);
                 search_database(hash_table_array,word);
                 break;
             }
-        case 4: {
+            case 4: {
                 printf("Enter the file name you want to save: ");
                 char file_name[WORD_SIZE];
                 scanf("%s",file_name);
                 save_database(hash_table_array,file_name);
                 break;
             }
-    }
+            case 5: {
+                printf("Enter the file name: ");
+                char file_name[WORD_SIZE];
+                scanf("%s",file_name);
+                update_database(hash_table_array,file_name);
+                break;
+            }
+        }
 
     } while (1);
 
