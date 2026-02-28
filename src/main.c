@@ -13,11 +13,13 @@ int main(int argc, char** argv) {
     int choice;
 
     do {
+    error_choice:
         printf("1. Create Database\n");
         printf("2. Display Database\n");
         printf("3. Search Database\n");
         printf("4. Save Database\n");
         printf("5. Update Database\n");
+        printf("6. Exit\n");
         printf("Enter an choice: ");
         scanf("%d",&choice);
         printf("\n");
@@ -61,6 +63,17 @@ int main(int argc, char** argv) {
                 scanf("%s",file_name);
                 update_database(hash_table_array,file_name);
                 break;
+            }
+
+            case 6: {
+                free_database(hash_table_array);
+                exit(EXIT_SUCCESS);
+                break;
+            }
+
+            default:{
+                printf("[ERROR] Enter an valid choice\n");
+                goto error_choice;
             }
         }
 
