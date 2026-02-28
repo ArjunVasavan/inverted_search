@@ -1,5 +1,4 @@
 #include "../include/inverted_search.h"
-#include <cstddef>
 
 status_t update_database(hash_t *hash_table, const char *file_name) {
 

@@ -25,7 +25,7 @@ void free_database(hash_t *hash_table) {
 
             prev_main = cur_main;
             cur_main = cur_main->next;
-            free(cur_main);
+            free(prev_main);
         }
 
     }
