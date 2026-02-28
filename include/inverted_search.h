@@ -1,39 +1,81 @@
-#ifndef INV_H
-#define INV_H
+#ifndef HASH_H
+#define HASH_H
 
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef enum {
-    SUCCESS,
-    FAILURE
-} status;
+#include <string.h>
+#include <ctype.h>
 
 #define HASH_SIZE 27
+#define WORD_SIZE 100
+#define FILE_NAME_SIZE 100
 
-// this is to store filename and word count
+typedef enum {
+    SUCCESS = 0,
+    FAILURE = -1,
+    LIST_EMPTY = -2,
+    DATA_NOT_FOUND = -3
+} status_t;
 
-typedef struct sub_node_t {
-    char file_name[100];
+
+/* File list (input file list)   */
+
+typedef struct file_node {
+    char file_name[FILE_NAME_SIZE];
+    struct file_node *next;
+} file_t;
+
+
+/* Sub node (file level in DB)   */
+
+typedef struct sub_node {
+    char file_name[FILE_NAME_SIZE];
     int word_count;
-    struct sub_node_t* link;
-} sub_node_t;
+    struct sub_node *next;
+} sub_t;
 
-typedef struct main_node_t {
+
+/* Main node (word level in DB)  */
+
+typedef struct main_node {
+    char word[WORD_SIZE];
     int file_count;
-    char word[100];
-    sub_node_t* sub_link;
-    struct main_node_t* main_link;
-} main_node_t;
+    sub_t *sub_link;
+    struct main_node *next;
+} main_t;
 
-typedef struct hash_t {
-    main_node_t* link;
+
+/* Hash table bucket             */
+
+typedef struct hash_node {
+    int index;
+    main_t *head;
 } hash_t;
 
-typedef struct file_val_t {
-    char file_name[100];
-    struct file_val_t* link;
-} file_val_t;
 
+int validate_files(int argc, char *argv[], file_t **head);
 
-#endif 
+void create_hash_table(hash_t hash_table[]);
+
+int hash_function(const char *word);
+
+status_t create_database(hash_t hash_table[], file_t *file_head);
+
+status_t insert_word(hash_t hash_table[],
+                     const char *word,
+                     const char *file_name);
+
+status_t search_database(hash_t hash_table[],
+                         const char *word);
+
+void display_database(hash_t hash_table[]);
+
+status_t save_database(hash_t hash_table[],
+                       const char *file_name);
+
+status_t update_database(hash_t hash_table[],
+                         const char *file_name);
+
+void free_database(hash_t hash_table[]);
+
+#endif
