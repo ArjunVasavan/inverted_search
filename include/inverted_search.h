@@ -53,7 +53,7 @@ typedef struct hash_node {
 } hash_t;
 
 
-int validate_files(int argc, char *argv[], file_t **head);
+status_t validate_files(int argc, char *argv[], file_t **head);
 
 void create_hash_table(hash_t hash_table[]);
 

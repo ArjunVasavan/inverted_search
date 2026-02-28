@@ -1,6 +1,6 @@
 CC := gcc
 
-TARGET := inv
+TARGET := a.out
 CFLAGS := -Iinclude
 
 SRC_DIR := src
