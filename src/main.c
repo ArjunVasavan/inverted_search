@@ -50,7 +50,9 @@ int main(int argc, char **argv)
                 char word[WORD_SIZE];
                 printf("Enter word: ");
                 scanf("%s", word);
-                search_database(hash_table_array, word);
+                if ( search_database(hash_table_array, word) == DATA_NOT_FOUND ) {
+                    printf("Data not found!\n");
+                }
                 break;
             }
 
@@ -58,7 +60,12 @@ int main(int argc, char **argv)
                 char save_file[WORD_SIZE];
                 printf("Enter save file name: ");
                 scanf("%s", save_file);
-                save_database(hash_table_array, save_file);
+                if ( save_database(hash_table_array, save_file) == SUCCESS ) {
+                    printf("Successfully saved!\n");
+                } else {
+                    printf("[ERROR]: saving database failed!\n");
+                }
+
                 break;
             }
 
@@ -81,9 +88,10 @@ int main(int argc, char **argv)
                 }
                 break;
 
-            case 6:
+            case 6:{
                 free_database(hash_table_array);
                 return SUCCESS;
+            }
 
             default:
                 printf("Invalid choice\n");
